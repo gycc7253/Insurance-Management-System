@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.InsFollowMapper">
+	<select id = "getInsFollowByInsId" resultType = "com.entity.InsFollow">
+		select * from insfollow where insId = #{insId}
+	</select>
+	
+	<insert id="addInsFollow" parameterType = "com.entity.InsFollow">
+		insert into insfollow values 
+		(null, #{recordDate}, #{recordText}, #{nextDate}, #{insId})
+	</insert>
+</mapper>

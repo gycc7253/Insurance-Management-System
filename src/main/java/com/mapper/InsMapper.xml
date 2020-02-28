@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.InsMapper">
+	<select id="getInsByPageAndUserId" resultType = "com.entity.Ins">
+		select * from ins where userId = #{id} order by status asc limit #{start}, #{size}
+	</select>
+	
+	<select id = "countByUid" resultType = "int">
+		select count(1) from ins where userId = #{id}
+	</select>
+	
+	<insert id="addIns" parameterType = "com.entity.Ins">
+		insert into ins values 
+		(null, #{customName}, #{customSex}, #{customAge}, #{addr}, #{phone}, #{idcard}, #{bankcard}, #{pid},
+		#{inputDate}, #{status}, #{userId}, #{isMarry}, #{remark})
+	</insert>
+	
+	<select id="getInsById" resultType = "com.entity.Ins">
+		select * from ins where id = #{id}
+	</select>
+	
+	<update id="editIns" parameterType="com.entity.Ins">
+		update ins set
+		customName = #{customName},
+		customSex = #{customSex},
+		customAge = #{customAge},
+		addr = #{addr},
+		phone = #{phone},
+		idcard = #{idcard},
+		bankcard = #{bankcard},
+		pid = #{pid},
+		inputDate = #{inputDate},
+		status = #{status},
+		userId = #{userId},
+		isMarry = #{isMarry},
+		remark = #{remark}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteInsById" parameterType = "int">
+		delete from ins where id = #{id}
+	</delete>
+	
+	<update id = "submitIns">
+		update ins set 
+		status = #{status}
+		where id = #{id}
+	</update>
+	
+	<select id = "countByStatus" resultType = "int">
+		select count(1) from ins where status = #{status}
+	</select>
+	
+	<select id = "getInsByPageAndStatus" resultType = "com.entity.Ins">
+		select * from ins where status = #{status} limit #{start}, #{size}
+	</select>
+	
+	<select id="getInsByFinance" resultType = "com.entity.Ins">
+		select * from ins where status in (#{status1}, #{status2}) order by status asc limit #{start}, #{size}
+	</select>
+	
+	<select id = "getInsStatusById" resultType = "int">
+		select status from ins where id = #{id}
+	</select>
+	
+	<select id="count" resultType = "int">
+		select count(1) from ins
+	</select>
+</mapper>
