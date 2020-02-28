@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.FreeInsMapper">
+	<select id="getFreeInsByPage" resultType = "com.entity.FreeIns">
+		select * from freeIns limit #{start}, #{size}
+	</select>
+	
+	<select id="getFreeInsByPageAndUserId" resultType = "com.entity.FreeIns">
+		select * from freeIns where userId = #{userId} order by status asc limit #{start}, #{size}
+	</select>
+
+	<select id = "count" resultType = "int">
+		select count(1) from freeins
+	</select>
+	
+	<select id = "getFreeInsById" resultType = "com.entity.FreeIns">
+	
+		select * from freeIns where id = #{id}
+	</select>
+	
+	<delete id="deleteFreeInsById">
+		delete from freeIns where id = #{id}
+	</delete>
+	
+	<update id="editFreeIns" parameterType = "com.entity.FreeIns">
+		update freeIns set 
+			customName = #{customName},
+			customSex = #{customSex},
+			customAge = #{customAge},
+			addr = #{addr},
+			phone = #{phone},
+			status = #{status},
+			userId = #{userId},
+			inputDate = #{inputDate},
+			remark = #{remark}
+		where id = #{id}
+	</update>
+	
+	<insert id="addFreeIns" parameterType="com.entity.FreeIns">
+		insert into freeIns values 
+		(null, #{customName}, #{customSex}, #{customAge}, #{addr}, #{phone}, #{status}, #{userId}, #{inputDate}, #{remark})
+	</insert>
+	
+	<update id = "submitFreeIns">
+		update freeIns set status = #{status} where id = #{id}
+	</update>
+	
+	<select id="countByUid" resultType="int">
+		select count(1) from freeins where userId = #{id}
+	</select>
+	
+	<select id = "countByStatus" resultType = "int">
+		select count(1) from freeins where status = #{status}
+	</select>
+	
+	<select id="getFreeInsByPageAndStatus" resultType = "com.entity.FreeIns">
+		select * from freeins where status = #{status} order by status asc
+		limit #{start}, #{size}
+	</select>
+	
+	<select id = "getFreeInsStatusById" resultType = "int">
+		select status from freeins where id = #{id}
+	</select>
+	
+	<select id="countFreeInsByUserAndStatus" resultType = "int">
+		select count(1) from freeins where userId = #{userId} and status = #{status}
+	</select>
+</mapper>
